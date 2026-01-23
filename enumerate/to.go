@@ -9,3 +9,45 @@ func ToSlice[E Enumerable[T], T any](seq E) []T {
 
 	return result
 }
+
+func ToMap[E Enumerable[T], T any, K comparable](seq E, keySelector func(T) K) map[K]T {
+	result := make(map[K]T, seq.GetLen())
+
+	for seq.HasNext() {
+		val := seq.Next()
+		result[keySelector(val)] = val
+	}
+
+	return result
+}
+
+func SliceToMap[T any, K comparable](seq []T, keySelector func(T) K) map[K]T {
+	result := make(map[K]T, len(seq))
+
+	for _, val := range seq {
+		result[keySelector(val)] = val
+	}
+
+	return result
+}
+
+func ToMapBuckets[E Enumerable[T], T any, K comparable](seq E, keySelector func(T) K) map[K][]T {
+	result := make(map[K][]T, seq.GetLen())
+
+	for seq.HasNext() {
+		val := seq.Next()
+		result[keySelector(val)] = append(result[keySelector(val)], val)
+	}
+
+	return result
+}
+
+func SliceToMapBuckets[T any, K comparable](seq []T, keySelector func(T) K) map[K][]T {
+	result := make(map[K][]T, len(seq))
+
+	for _, val := range seq {
+		result[keySelector(val)] = append(result[keySelector(val)], val)
+	}
+
+	return result
+}
