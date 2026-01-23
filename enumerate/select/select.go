@@ -1,18 +1,13 @@
 package en_select
 
 import (
-	"asdanko/enumerate/enumerate"
 	"iter"
+
+	"asdanko/enumerate/enumerate"
 )
 
-func FromIter[T, R any](seq iter.Seq[T], applyFunc func(T) R) iter.Seq[R] {
-	return func(yield func(R) bool) {
-		for item := range seq {
-			if !yield(applyFunc(item)) { // yield returns false to stop early
-				return
-			}
-		}
-	}
+func FromIter[T, R any](seq iter.Seq[T], applyFunc func(T) R) enumerate.Enumerable[R] {
+	return &selectIters[T, R]{subEnum: seq, applyFunc: applyFunc}
 }
 
 func FromSlice[T, R any](seq []T, applyFunc func(T) R) enumerate.Enumerable[R] {
