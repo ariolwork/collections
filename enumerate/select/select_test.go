@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"math/rand"
 	"testing"
+	"time"
 
 	"asdanko/enumerate/enumerate"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSelectForIter(t *testing.T) {
+func TestSelectForSlice(t *testing.T) {
 	items := []int{1, 2, 3, 4, 5}
 
 	r := enumerate.ToSlice(FromSlice(items, func(i int) string {
@@ -20,7 +21,23 @@ func TestSelectForIter(t *testing.T) {
 	assert.ElementsMatch(t, r, []string{"A: 1", "A: 2", "A: 3", "A: 4", "A: 5"})
 }
 
-func BenchmarkSelectForIterTest(b *testing.B) {
+func TestSelectMax(t *testing.T) {
+	maxVal := time.Now().Add(time.Hour * 10)
+	items := []time.Time{time.Now().Add(time.Hour * 1), maxVal, time.Now().Add(time.Hour * 2), time.Now().Add(time.Hour * 3)}
+
+	r := enumerate.MaxBy(
+		FromSlice(items, func(i time.Time) time.Time {
+			return i.Add(time.Duration(time.Minute))
+		}),
+		func(a, b time.Time) int {
+			return a.Compare(b)
+		},
+	)
+
+	assert.Equal(t, maxVal.Add(time.Minute), r)
+}
+
+func BenchmarkSelectForSliceTest(b *testing.B) {
 	rnd := rand.New(rand.NewSource(int64(100)))
 	len := rnd.Intn(1000)
 	source := make([]int, 0, len)

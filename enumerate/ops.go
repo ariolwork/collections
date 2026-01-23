@@ -14,6 +14,7 @@ func Max[E Enumerable[T], T constraints.Ordered](seq E) T {
 			}
 		} else {
 			max = tmp
+			setted = true
 		}
 	}
 
@@ -32,6 +33,7 @@ func Min[E Enumerable[T], T constraints.Ordered](seq E) T {
 			}
 		} else {
 			min = tmp
+			setted = true
 		}
 	}
 
@@ -50,6 +52,7 @@ func MaxBy[E Enumerable[T], T any](seq E, compare func(first, second T) int) T {
 			}
 		} else {
 			max = tmp
+			setted = true
 		}
 	}
 
@@ -68,6 +71,7 @@ func MinBy[E Enumerable[T], T any](seq E, compare func(first, second T) int) T {
 			}
 		} else {
 			min = tmp
+			setted = true
 		}
 	}
 
