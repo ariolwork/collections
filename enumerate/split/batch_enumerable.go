@@ -27,8 +27,10 @@ func (s *batchEnumerable[E, T]) Next() []T {
 
 	batch := make([]T, 0, s.batchSize)
 
-	for s.subEnum.HasNext() {
+	ind := 0
+	for s.subEnum.HasNext() && ind < s.batchSize {
 		batch = append(batch, s.subEnum.Next())
+		ind += 1
 	}
 
 	return batch
