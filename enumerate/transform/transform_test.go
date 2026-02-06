@@ -1,4 +1,4 @@
-package en_select
+package transform
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 func TestSelectForSlice(t *testing.T) {
 	items := []int{1, 2, 3, 4, 5}
 
-	r := enumerate.ToSlice(FromSlice(items, func(i int) string {
+	r := enumerate.ToSlice(Slice(items, func(i int) string {
 		return fmt.Sprintf("A: %d", i)
 	}))
 
@@ -26,7 +26,7 @@ func TestSelectMax(t *testing.T) {
 	items := []time.Time{time.Now().Add(time.Hour * 1), maxVal, time.Now().Add(time.Hour * 2), time.Now().Add(time.Hour * 3)}
 
 	r := enumerate.MaxBy(
-		FromSlice(items, func(i time.Time) time.Time {
+		Slice(items, func(i time.Time) time.Time {
 			return i.Add(time.Duration(time.Minute))
 		}),
 		func(a, b time.Time) int {
@@ -53,7 +53,7 @@ func BenchmarkSelectForSliceTest(b *testing.B) {
 		r := enumerate.ToSlice(
 			From(
 				From(
-					FromSlice(
+					Slice(
 						source,
 						func(i int) int {
 							return i + 1

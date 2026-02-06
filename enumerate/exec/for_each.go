@@ -39,3 +39,20 @@ func ForEachInSliceWithErr[T any](seq []T, execFunc func(T) error) error {
 
 	return nil
 }
+
+func ForEachInMap[K comparable, V any](seq map[K]V, execFunc func(K, V)) {
+	for key, val := range seq {
+		execFunc(key, val)
+	}
+}
+
+func ForEachInMapWithErr[K comparable, V any](seq map[K]V, execFunc func(K, V) error) error {
+	for key, val := range seq {
+		err := execFunc(key, val)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
