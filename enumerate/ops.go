@@ -102,6 +102,7 @@ func SumBy[E Enumerable[T], T any, R MathOps](seq E, selector func(T) R) R {
 	return sum
 }
 
+// todo это By да и преализация неверна, просуммируем  0
 func Multiply[E Enumerable[T], T any, R MathOps](seq E, selector func(T) R) R {
 	var sum R
 

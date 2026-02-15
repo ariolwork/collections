@@ -2,6 +2,8 @@ package split
 
 import "asdanko/enumerate/enumerate"
 
+// todo а что если длина нижележащего не определена
+
 func newBatchEnumerable[E enumerate.Enumerable[T], T any](seq E, batchSize int) enumerate.Enumerable[[]T] {
 	return &batchEnumerable[E, T]{subEnum: seq, batchSize: batchSize, totalBatches: (seq.GetLen() + batchSize - 1) / batchSize}
 }

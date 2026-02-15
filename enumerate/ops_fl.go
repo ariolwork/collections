@@ -1,5 +1,6 @@
 package enumerate
 
+// todo добавить опции
 func First[E Enumerable[T], T any](seq E) T {
 	if seq.HasNext() {
 		return seq.Next()
