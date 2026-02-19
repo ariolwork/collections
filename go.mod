@@ -1,4 +1,4 @@
-module asdanko/enumerate
+module asdanko/collections
 
 go 1.25.4
 
