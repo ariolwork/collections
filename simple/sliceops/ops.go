@@ -1,4 +1,4 @@
-package simple
+package sliceops
 
 import "golang.org/x/exp/constraints"
 

@@ -1,4 +1,4 @@
-package simple
+package sliceops
 
 // todo добавить опции
 func First[T any](source []T) T {

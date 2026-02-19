@@ -1,6 +1,6 @@
-package extract
+package mapops
 
-func MapValues[K comparable, V any](m map[K]V) []V {
+func SelectValues[K comparable, V any](m map[K]V) []V {
 	resultList := make([]V, 0, len(m))
 	for _, v := range m {
 		resultList = append(resultList, v)
@@ -9,7 +9,7 @@ func MapValues[K comparable, V any](m map[K]V) []V {
 	return resultList
 }
 
-func MapKeys[K comparable, V any](m map[K]V) []K {
+func SelectKeys[K comparable, V any](m map[K]V) []K {
 	resultList := make([]K, 0, len(m))
 	for k, _ := range m {
 		resultList = append(resultList, k)
