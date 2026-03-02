@@ -1,4 +1,4 @@
-module asdanko/collections
+module github.com/asdanko/collections
 
 go 1.25.4
 
