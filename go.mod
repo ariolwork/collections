@@ -1,4 +1,4 @@
-module github.com/asdanko/collections
+module github.com/ariolwork/collections
 
 go 1.25.4
 
