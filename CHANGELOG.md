@@ -9,3 +9,6 @@
 
 # v0.0.3 - 02.03.2026
 - fix go mod module name
+
+# v0.0.5 - 02.03.2026
+- downgrade go version
