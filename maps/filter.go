@@ -1,6 +1,6 @@
 package maps
 
-func IdempotentFilter[M ~map[K]V, K comparable, V any](m M, filter func(K, V) bool) M {
+func Filter[M ~map[K]V, K comparable, V any](m M, filter func(K, V) bool) M {
 	result := make(map[K]V, len(m))
 
 	for key, value := range m {
