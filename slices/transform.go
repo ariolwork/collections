@@ -1,6 +1,6 @@
 package slices
 
-func ToMap[T any, K comparable](seq []T, keySelector func(T) K) map[K]T {
+func ToMap[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map[K]T {
 	result := make(map[K]T, len(seq))
 
 	for _, val := range seq {
@@ -10,7 +10,7 @@ func ToMap[T any, K comparable](seq []T, keySelector func(T) K) map[K]T {
 	return result
 }
 
-func ToMapBuckets[T any, K comparable](seq []T, keySelector func(T) K) map[K][]T {
+func ToMapBuckets[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map[K][]T {
 	result := make(map[K][]T, len(seq))
 
 	for _, val := range seq {
@@ -20,7 +20,7 @@ func ToMapBuckets[T any, K comparable](seq []T, keySelector func(T) K) map[K][]T
 	return result
 }
 
-func Transform[T, R any](source []T, applyFunc func(T) R) []R {
+func Transform[S ~[]T, T, R any](source S, applyFunc func(T) R) []R {
 	result := make([]R, 0, len(source))
 
 	for _, item := range source {
