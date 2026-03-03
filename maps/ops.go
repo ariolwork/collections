@@ -39,3 +39,41 @@ func MultiplyFunc[M ~map[K]V, K comparable, V any, R MathOps](m M, cmd func(K, V
 
 	return mul
 }
+
+func First[M ~map[K]V, K comparable, V any](m M) (K, V) {
+	for key, value := range m {
+		return key, value
+	}
+
+	panic("Attempt to get First on empty collection. Please use FirstOrDefault")
+}
+
+func FirstFunc[M ~map[K]V, K comparable, V any](m M, cmd func(K, V) bool) (K, V) {
+	for key, value := range m {
+		if cmd(key, value) {
+			return key, value
+		}
+	}
+
+	panic("Attempt to get FirstBy without success collection containing. Please use FirstOrDefaultBy")
+}
+
+func AllFunc[M ~map[K]V, K comparable, V any](m M, cmd func(K, V) bool) bool {
+	for _, val := range s {
+		if !cmd(val) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func AnyFunc[M ~map[K]V, K comparable, V any](m M, cmd func(K, V) bool) bool {
+	for _, val := range s {
+		if cmd(val) {
+			return true
+		}
+	}
+
+	return false
+}

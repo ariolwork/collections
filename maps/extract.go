@@ -53,21 +53,3 @@ func KeysSeq[M ~map[K]V, K comparable, V any](m M) iter.Seq[K] {
 		}
 	}
 }
-
-func Any[M ~map[K]V, K comparable, V any](m M) (K, V) {
-	for key, value := range m {
-		return key, value
-	}
-
-	panic("Attempt to get First on empty collection. Please use FirstOrDefault")
-}
-
-func AnyFunc[M ~map[K]V, K comparable, V any](m M, cmd func(K, V) bool) (K, V) {
-	for key, value := range m {
-		if cmd(key, value) {
-			return key, value
-		}
-	}
-
-	panic("Attempt to get FirstBy without success collection containing. Please use FirstOrDefaultBy")
-}

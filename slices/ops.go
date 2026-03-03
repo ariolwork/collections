@@ -201,3 +201,67 @@ func LastOrDefaultFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 
 	return val
 }
+
+// The All function accept slice with bool elements and return true if all are true.
+func All[S ~[]T, T ~bool](s S) bool {
+	for _, val := range s {
+		if !val {
+			return false
+		}
+	}
+
+	return true
+}
+
+// The AllFunc function returns true if cmd function return true for all elements.
+// If collection is empty, true returns. So you may need to check collection on empty.
+// Right way to use
+//
+// if slices.AllFunc([]int{2,4,6}, func(val int)bool { return val&1 == 0 } ) { ...
+func AllFunc[S ~[]T, T any](s S, cmd func(T) bool) bool {
+	for _, val := range s {
+		if !cmd(val) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// The Any function accept slice with bool elements and return true if one or more are true.
+func Any[S ~[]T, T ~bool](s S) bool {
+	for _, val := range s {
+		if val {
+			return true
+		}
+	}
+
+	return false
+}
+
+// The AnyFunc function returns true if cmd function return true for one or more.
+// If collection is empty, false returns. So you may need to check collection on empty.
+// Right way to use
+//
+// if slices.AnyFunc([]int{1,2,3,4}, func(val int)bool { return val&1 == 0 } ) { ...
+func AnyFunc[S ~[]T, T any](s S, cmd func(T) bool) bool {
+	for _, val := range s {
+		if cmd(val) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// The IsEmpty function checks if collection is empty.
+// It returns true if collection is empty
+func IsEmpty[S ~[]T, T any](s S) bool {
+	return len(s) == 0
+}
+
+// The NotEmpty function checks if collection is empty.
+// It returns true if collection is not empty
+func NotEmpty[S ~[]T, T any](s S) bool {
+	return len(s) != 0
+}
