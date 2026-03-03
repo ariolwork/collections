@@ -1,8 +1,5 @@
 package maps
 
-//todo переименовать все seq в source
-//todo ротировать функции и обекты над которыми приемняем для соответствися лучшим
-
 func TransformValues[M ~map[K]V, K comparable, V, R any](m M, applyFunc func(K, V) R) map[K]R {
 	result := make(map[K]R, len(m))
 
@@ -31,4 +28,16 @@ func Rotate[M ~map[K]V, K, R comparable, V any](m M, applyFunc func(K, V) R) map
 	}
 
 	return result
+}
+
+// The UpdateValues function convert each element of map.
+// It update current map values
+// Right way to use:
+//
+//	map := map[int]int{1:1, 2:2}
+//	maps.UpdateValues(map, func(k, v int) int {return v * 2})
+func UpdateValues[M ~map[K]V, K comparable, V any](m M, applyFunc func(K, V) V) {
+	for key, val := range m {
+		m[key] = applyFunc(key, val)
+	}
 }

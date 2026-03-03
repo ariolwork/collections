@@ -1,13 +1,13 @@
 package slices
 
 // The ForEach function exec any func for each element of slice.
-// !!!Pay attantion, if you want to change slice non ref values you should use Transform
+// !!!Pay attention, if you want to change slice non ref values you should use Transform or Update
 // This example won't update source slice, just take you memory and cpu time:
 //
 //	s := []int{1,2,3}
 //	slices.ForEach(s, func(i int){ i+=2 })
 //
-// Right way to use this method
+// Right way to use this function
 //
 //	s := []int{1,2,3}
 //	slices.ForEach(s, func(i int){ logger.Log("Element", i) })
@@ -19,7 +19,7 @@ func ForEach[S ~[]T, T any](s S, cmd func(T)) {
 
 // The ForEachWithErr close to ForEach function.
 // It exec any func for each element of slice unitl error returns.
-// Right way to use this method
+// Right way to use this function
 //
 //	s := []int{1,2,3}
 //	slices.ForEach(s, func(i int) error {
