@@ -1,5 +1,12 @@
 package slices
 
+// The ToMap function convert slice to map with keys calculated by keySelector method
+// It creates new map with same size as slice. keySelector func must returns comparable type.
+// If slice contain several element with equal calculated keys, value will be overriden.
+// You can use ToMapBuckets to avoid it.
+// Rigth way to use method
+//
+//	slice = slices.ToMap([]int{1,2,3}, func(val int) string { return itoa.Itoa(val) })
 func ToMap[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map[K]T {
 	result := make(map[K]T, len(seq))
 
@@ -10,6 +17,13 @@ func ToMap[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map[K]T {
 	return result
 }
 
+// The ToMapBuckets function convert slice to map with keys calculated by keySelector method
+// It creates new map with same size as slice. keySelector func must returns comparable type.
+// If slice contain several element with equal calculated keys, all values will be saved in slice.
+// So, it can be used as Group method.
+// Rigth way to use method
+//
+//	slice = slices.ToMapBuckets([]int{1,2,3,2,1}, func(val int) string { return itoa.Itoa(val) })
 func ToMapBuckets[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map[K][]T {
 	result := make(map[K][]T, len(seq))
 
@@ -20,6 +34,18 @@ func ToMapBuckets[S ~[]T, T any, K comparable](seq S, keySelector func(T) K) map
 	return result
 }
 
+// The Transform function convert each element of slice to new one.
+// It creates new slice with same size and append all transformed values.
+// Transform returns the updated slice. It is therefore necessary to store the
+// result of filtering, often in the variable holding the slice itself:
+//
+//	slice := []int{1,2,3,4}
+//	slice = slices.Transform(slice, filterFunc)
+//
+// It also can return slice with another type
+//
+//	slice := []int{1,2,3,4}
+//	slice1 := slices.Transform(slice, func(val int) string {return itoa.Itoa(val)})
 func Transform[S ~[]T, T, R any](source S, applyFunc func(T) R) []R {
 	result := make([]R, 0, len(source))
 
