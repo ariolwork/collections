@@ -34,7 +34,7 @@ func Sum[S ~[]T, T MathOps](s S) T {
 	})
 }
 
-// The SumFunc function sum field value for each collection element.
+// The SumFunc function sum function results for each collection element.
 // Right way to use.
 //
 //	val = slices.SumFunc([]string{"aaa","bb"}, func(r string) int {return len(r)})
@@ -64,7 +64,7 @@ func Multiply[S ~[]T, T MathOps](s S) T {
 	return mul
 }
 
-// The Multiply function multiply field value for each collection element.
+// The Multiply function multiply function results for each collection element.
 // Right way to use.
 //
 //	val = slices.MultiplyFunc([]string{"aaa","bb"}, func(r string) int {return len(r)})
@@ -89,8 +89,8 @@ func MultiplyFunc[S ~[]T, T any, R MathOps](s S, cmd func(T) R) R {
 // First Last Operations
 
 // The First function returns first element of slice.
-// If collection is empty, method panic
-// You should use FirstOrDefault method if collection can be empty
+// If collection is empty, function panic
+// You should use FirstOrDefault function if collection can be empty
 func First[S ~[]T, T any](s S) T {
 	if len(s) == 0 {
 		panic("Attempt to get First on empty collection. Please use FirstOrDefault")
@@ -100,7 +100,7 @@ func First[S ~[]T, T any](s S) T {
 }
 
 // The FirstOrDefault function returns first element of slice.
-// If collection is empty, method returns default value
+// If collection is empty, function returns default value
 func FirstOrDefault[S ~[]T, T any](s S) T {
 	var val T
 
@@ -112,8 +112,8 @@ func FirstOrDefault[S ~[]T, T any](s S) T {
 }
 
 // The FirstFunc function returns first element of slice satisfying filter (cmd).
-// If there is no satisfying elements in collection, method panic
-// You should use FirstOrDefaultFunc method to avoid panics
+// If there is no satisfying elements in collection, function panic
+// You should use FirstOrDefaultFunc function to avoid panics
 func FirstFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 	for _, item := range s {
 		if cmd(item) {
@@ -125,7 +125,7 @@ func FirstFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 }
 
 // The FirstOrDefaultFunc function returns first element of slice satisfying filter (cmd).
-// If there is no satisfying elements in collection, method returns default value
+// If there is no satisfying elements in collection, function returns default value
 func FirstOrDefaultFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 	for _, item := range s {
 		if cmd(item) {
@@ -139,8 +139,8 @@ func FirstOrDefaultFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 }
 
 // The Last function returns last element of slice.
-// If collection is empty, method panic
-// You should use LastOrDefault method if collection can be empty
+// If collection is empty, function panic
+// You should use LastOrDefault function if collection can be empty
 func Last[S ~[]T, T any](s S) T {
 	if len(s) == 0 {
 		panic("Attempt to get Last on empty collection. Please use LastOrDefault")
@@ -150,7 +150,7 @@ func Last[S ~[]T, T any](s S) T {
 }
 
 // The LastOrDefault function returns last element of slice.
-// If collection is empty, method returns default value
+// If collection is empty, function returns default value
 func LastOrDefault[S ~[]T, T any](s S) T {
 	var val T
 
@@ -162,8 +162,8 @@ func LastOrDefault[S ~[]T, T any](s S) T {
 }
 
 // The LastFunc function returns last element of slice satisfying filter (cmd).
-// If there is no satisfying elements in collection, method panic
-// You should use FirstOrDefaultFunc method to avoid panics
+// If there is no satisfying elements in collection, function panic
+// You should use FirstOrDefaultFunc function to avoid panics
 func LastFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 	setupped := false
 	var val T
@@ -186,7 +186,7 @@ func LastFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 }
 
 // The LastOrDefaultFunc function returns last element of slice satisfying filter (cmd).
-// If there is no satisfying elements in collection, method returns default value
+// If there is no satisfying elements in collection, function returns default value
 func LastOrDefaultFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 	var val T
 
@@ -200,4 +200,68 @@ func LastOrDefaultFunc[S ~[]T, T any](s S, cmd func(T) bool) T {
 	}
 
 	return val
+}
+
+// The All function accept slice with bool elements and return true if all are true.
+func All[S ~[]T, T ~bool](s S) bool {
+	for _, val := range s {
+		if !val {
+			return false
+		}
+	}
+
+	return true
+}
+
+// The AllFunc function returns true if cmd function return true for all elements.
+// If collection is empty, true returns. So you may need to check collection on empty.
+// Right way to use
+//
+// if slices.AllFunc([]int{2,4,6}, func(val int)bool { return val&1 == 0 } ) { ...
+func AllFunc[S ~[]T, T any](s S, cmd func(T) bool) bool {
+	for _, val := range s {
+		if !cmd(val) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// The Any function accept slice with bool elements and return true if one or more are true.
+func Any[S ~[]T, T ~bool](s S) bool {
+	for _, val := range s {
+		if val {
+			return true
+		}
+	}
+
+	return false
+}
+
+// The AnyFunc function returns true if cmd function return true for one or more.
+// If collection is empty, false returns. So you may need to check collection on empty.
+// Right way to use
+//
+// if slices.AnyFunc([]int{1,2,3,4}, func(val int)bool { return val&1 == 0 } ) { ...
+func AnyFunc[S ~[]T, T any](s S, cmd func(T) bool) bool {
+	for _, val := range s {
+		if cmd(val) {
+			return true
+		}
+	}
+
+	return false
+}
+
+// The IsEmpty function checks if collection is empty.
+// It returns true if collection is empty
+func IsEmpty[S ~[]T, T any](s S) bool {
+	return len(s) == 0
+}
+
+// The NotEmpty function checks if collection is empty.
+// It returns true if collection is not empty
+func NotEmpty[S ~[]T, T any](s S) bool {
+	return len(s) != 0
 }

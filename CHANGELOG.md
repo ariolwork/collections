@@ -12,3 +12,8 @@
 
 # v0.0.5 - 02.03.2026
 - downgrade go version
+
+# v1.0.0 - 05.03.2026
+- add all base methods
+- add descriptions
+- test base scenarious of all methods

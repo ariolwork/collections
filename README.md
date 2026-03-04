@@ -8,7 +8,7 @@ Go package `collections` provides helpers to exec operation with all built-in co
 go get github.com/ariolwork/collections
 ```
 
-API is stable. [Documentation](https://pkg.go.dev/github.com/ariolwork/collections).
+[Documentation](https://pkg.go.dev/github.com/ariolwork/collections).
 
 ```go
 package example
